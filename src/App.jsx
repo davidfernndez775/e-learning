@@ -9,6 +9,7 @@ import Modal from "./components/Modal";
 import CategoriesCard from "./components/page-components/CategoriesCard";
 import OffersCard from "./components/page-components/OffersCard";
 import TestimonialCard from "./components/page-components/TestimonialCard";
+import TestimonialsList from "./components/lists/TestimonialsList";
 // *Icons
 import { BsFillSendFill } from "react-icons/bs";
 import { AiFillHtml5, AiFillPlayCircle, AiFillUnlock } from "react-icons/ai";
@@ -22,6 +23,7 @@ import { PiMicrosoftExcelLogoFill, PiPowerBold } from "react-icons/pi";
 import headerImage from "./img/header-img.png";
 // *Examples
 import UseStateHookEx from "./examples/UseStateHookEx";
+import UseEffectHookEx from "./examples/UseEffectHookEx";
 import MyList from "./examples/MyList";
 
 function App() {
@@ -267,7 +269,7 @@ function App() {
                 text="What our users say"
               />
               <div className="testimonials-container">
-                <TestimonialCard></TestimonialCard>
+                <TestimonialsList />
               </div>
             </section>
           </main>
@@ -276,6 +278,7 @@ function App() {
       {/* EXAMPLES */}
       {/* <UseStateHookEx></UseStateHookEx> */}
       {/* <MyList style={{ height: "100vh" }} /> */}
+      {/* <UseEffectHookEx></UseEffectHookEx> */}
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { BsTwitter, BsStar, BsStarFill } from "react-icons/bs";
 
 export default function TestimonialCard({
@@ -9,6 +9,8 @@ export default function TestimonialCard({
   text = "text",
   ratingStars,
 }) {
+  const [rating, setRating] = useState(ratingStars);
+
   return (
     <div className="card testimonial in-view">
       <div className="card-header">
@@ -26,9 +28,31 @@ export default function TestimonialCard({
         <p className="card-text">{text}</p>
       </div>
       <div className="card-footer d-flex" style={{ cursor: "pointer" }}>
+        {/* <BsStar className="mr-1" /> <BsStar className="mr-1" />{" "}
         <BsStar className="mr-1" /> <BsStar className="mr-1" />{" "}
-        <BsStar className="mr-1" /> <BsStar className="mr-1" />{" "}
-        <BsStar className="mr-1" />
+        <BsStar className="mr-1" /> */}
+        {[...Array(5)].map((start, index) => {
+          const ratingValue = index + 1;
+          return (
+            <label
+              key={index}
+              htmlFor="rating"
+              onClick={() => setRating(ratingValue)}
+              style={{ cursor: "pointer", color: "gold", fontSize: "1.5rem" }}
+            >
+              <input
+                type="radio"
+                value={ratingValue}
+                style={{ display: "none" }}
+              />
+              {ratingValue <= rating ? (
+                <BsStarFill className="mr-1" />
+              ) : (
+                <BsStar className="mr-1" />
+              )}
+            </label>
+          );
+        })}
       </div>
     </div>
   );
