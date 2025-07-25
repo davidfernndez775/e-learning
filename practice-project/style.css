@@ -366,20 +366,20 @@ form .btn {
 }
 
 .testimonials-container .card-img.img-1 {
-  /* background: url("./img/testimonial-1.jpg") no-repeat center center/cover; */
+  background: url("./img/testimonial-1.jpg") no-repeat center center/cover;
 }
 
 .testimonials-container .card-img.img-2 {
-  /* background: url("./img/testimonial-2.jpg") no-repeat center top/cover; */
+  background: url("./img/testimonial-2.jpg") no-repeat center top/cover;
 }
 
 .testimonials-container .card-img.img-3 {
-  /* background: url("./img/testimonial-3.jpg") no-repeat center top/cover; */
+  background: url("./img/testimonial-3.jpg") no-repeat center top/cover;
   background-size: 150%;
 }
 
 .testimonials-container .card-img.img-4 {
-  /* background: url("./img/testimonial-4.jpg") no-repeat center top/cover; */
+  background: url("./img/testimonial-4.jpg") no-repeat center top/cover;
   background-size: 120%;
 }
 /* todo: Update testimonial */
@@ -567,17 +567,4 @@ p {
   background-color: #333;
   color: #fff;
   cursor: pointer;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
 }
