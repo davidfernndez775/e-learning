@@ -18,7 +18,7 @@ export default function Button({
       style={style}
       onClick={onClick ? onClick : alertMissingHandler}
     >
-      <div className="d-lex">
+      <div className="d-flex">
         {icon}
         {text}
       </div>
