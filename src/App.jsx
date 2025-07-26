@@ -1,6 +1,6 @@
 import "./App.css";
 // *Hooks
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 // *Components
 import Title from "./components/Title";
 import Header from "./components/Header";
@@ -11,7 +11,7 @@ import OffersCard from "./components/page-components/OffersCard";
 import TestimonialCard from "./components/page-components/TestimonialCard";
 import TestimonialsList from "./components/lists/TestimonialsList";
 // *Icons
-import { BsFillSendFill } from "react-icons/bs";
+import { BsFillSendFill, BsArrowUpCircleFill } from "react-icons/bs";
 import { AiFillHtml5, AiFillPlayCircle, AiFillUnlock } from "react-icons/ai";
 import { DiCss3Full } from "react-icons/di";
 import { SiJavascript } from "react-icons/si";
@@ -25,8 +25,39 @@ import headerImage from "./img/header-img.png";
 import UseStateHookEx from "./examples/UseStateHookEx";
 import UseEffectHookEx from "./examples/UseEffectHookEx";
 import MyList from "./examples/MyList";
+import UseRefEx from "./examples/UseRefEx";
 
 function App() {
+  // *References
+  const offersRef = useRef();
+  const topRef = useRef();
+
+  // *Scroll State
+  const [goToTopArrow, setGoToTopArrow] = useState(false);
+
+  // *Scroll handle
+  function scrollFunction() {
+    if (
+      document.body.scrollTop > 20 ||
+      document.documentElement.scrollTop > 20
+    ) {
+      setGoToTopArrow(true);
+    } else {
+      setGoToTopArrow(false);
+    }
+  }
+
+  const handleGoToTop = () => {
+    topRef.current.scrollIntoView({ behavior: "smooth" });
+  };
+
+  // *Scroll Effect
+  useEffect(() => {
+    window.addEventListener("scroll", scrollFunction());
+    return () => window.removeEventListener("scroll", scrollFunction());
+    // window.onscroll = () => scrollFunction();
+  }, []);
+
   // *Modal State
   // se define como falso predeterminado para que no sea visible
   const [showCourseModal, setShowCourseModal] = useState(false);
@@ -43,10 +74,13 @@ function App() {
   // *Offers State
   const [showOffers, setShowOffers] = useState(false);
 
-  //* Office Handlers
+  //* Offers Handlers
   function handleShowOffers() {
     setShowOffers(!showOffers);
   }
+  const handleScrollToOffers = () => {
+    offersRef.current.scrollIntoView({ behavior: "smooth" });
+  };
 
   // *Offers List
   const offerList = [
@@ -98,17 +132,8 @@ function App() {
   return (
     <div className="container">
       <div className="container container-lg">
-        {/* MODAL */}
-        {/* se pone un if con and para si es falso que no aparezca */}
-        {showCourseModal && (
-          <Modal
-            title={"Access Denied"}
-            text={"Please login in order to access this content"}
-            cancelEvent={handleModalCancelEvent}
-          />
-        )}
         {/* HEADER */}
-        <div className="header-content mb-2 mt-2">
+        <div className="header-content mb-2 mt-2" ref={topRef}>
           <Header>
             <Title
               text="Learn to code by watching others"
@@ -133,6 +158,7 @@ function App() {
                 classes={"btn-secondary"}
                 text={"Learn more"}
                 icon={<BsFillSendFill />}
+                onClick={handleScrollToOffers}
               />
             </div>
             <img src={headerImage} alt="headerImage" className="header-img" />
@@ -224,7 +250,10 @@ function App() {
               </div>
             </section>
             {/* OFFERS */}
-            <section className="offers container container-md p-2">
+            <section
+              className="offers container container-md p-2"
+              ref={offersRef}
+            >
               <Title
                 classes={"subtitle text-center mb-4"}
                 text="Here is what you get"
@@ -274,11 +303,30 @@ function App() {
             </section>
           </main>
         </div>
+        {/* UTILITIES */}
+        {/* MODAL */}
+        {/* se pone un if con and para si es falso que no aparezca */}
+        {showCourseModal && (
+          <Modal
+            title={"Access Denied"}
+            text={"Please login in order to access this content"}
+            cancelEvent={handleModalCancelEvent}
+          />
+        )}
+        {/* GOT TO TOP */}
+        {goToTopArrow && (
+          <BsArrowUpCircleFill
+            className="goToTopArrow"
+            onClick={handleGoToTop}
+          />
+        )}
       </div>
+
       {/* EXAMPLES */}
       {/* <UseStateHookEx></UseStateHookEx> */}
       {/* <MyList style={{ height: "100vh" }} /> */}
       {/* <UseEffectHookEx></UseEffectHookEx> */}
+      {/* <UseRefEx /> */}
     </div>
   );
 }

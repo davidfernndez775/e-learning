@@ -582,3 +582,20 @@ p {
     transform: rotate(360deg);
   }
 }
+
+.goToTopArrow {
+  position: fixed;
+  bottom: 30px; /* separación desde abajo */
+  right: 30px; /* separación desde la derecha */
+  font-size: 3rem; /* tamaño del icono */
+  color: #333; /* color del icono */
+  cursor: pointer;
+  z-index: 999; /* para que quede encima */
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+}
+
+.goToTopArrow:hover {
+  opacity: 1;
+  color: #000;
+}
