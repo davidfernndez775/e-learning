@@ -83,6 +83,12 @@ form .btn {
   color: #eee;
 }
 
+.form {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 1rem;
+}
+
 .form-group {
   margin-bottom: 1rem;
 }

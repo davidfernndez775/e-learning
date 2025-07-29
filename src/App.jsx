@@ -10,6 +10,9 @@ import CategoriesCard from "./components/page-components/CategoriesCard";
 import OffersCard from "./components/page-components/OffersCard";
 import TestimonialCard from "./components/page-components/TestimonialCard";
 import TestimonialsList from "./components/lists/TestimonialsList";
+import ThrowError from "./examples/ThrowError";
+// *Forms
+import LoginForm from "./components/page-components/LoginForm";
 // *Icons
 import { BsFillSendFill, BsArrowUpCircleFill } from "react-icons/bs";
 import { AiFillHtml5, AiFillPlayCircle, AiFillUnlock } from "react-icons/ai";
@@ -26,6 +29,7 @@ import UseStateHookEx from "./examples/UseStateHookEx";
 import UseEffectHookEx from "./examples/UseEffectHookEx";
 import MyList from "./examples/MyList";
 import UseRefEx from "./examples/UseRefEx";
+import RegistrationForm from "./components/page-components/RegistrationForm";
 
 function App() {
   // *References
@@ -53,9 +57,9 @@ function App() {
 
   // *Scroll Effect
   useEffect(() => {
-    window.addEventListener("scroll", scrollFunction());
-    return () => window.removeEventListener("scroll", scrollFunction());
-    // window.onscroll = () => scrollFunction();
+    // window.addEventListener("scroll", scrollFunction());
+    // return () => window.removeEventListener("scroll", scrollFunction());
+    window.onscroll = () => scrollFunction();
   }, []);
 
   // *Modal State
@@ -70,6 +74,35 @@ function App() {
   function handleModalCancelEvent() {
     setShowCourseModal(false);
   }
+
+  // *Form State
+  const [forms, setForms] = useState({
+    loginForm: false,
+    registrationForm: false,
+  });
+
+  const [login, setLogin] = useState(false);
+
+  // *Form handles
+  // *Login Form
+  const handleShowLoginForm = () => {
+    setForms({ ...forms, loginForm: true, registrationForm: false });
+  };
+  const handleCancelLoginForm = () => {
+    setForms({ ...forms, loginForm: false });
+  };
+  const handleLoginFormValidation = () => {
+    setForms({ ...forms, loginForm: false });
+    setShowCourseModal(false);
+    setLogin(true);
+  };
+  // *Register Form
+  function handleShowRegistrationForm() {
+    setForms({ loginForm: false, registrationForm: true });
+  }
+  const handleCancelRegistrationForm = () => {
+    setForms({ ...forms, registrationForm: false });
+  };
 
   // *Offers State
   const [showOffers, setShowOffers] = useState(false);
@@ -151,7 +184,13 @@ function App() {
                 classes={"btn-primary text-light"}
                 text={"Try it free 30 days"}
                 icon={<BsFillSendFill />}
-                onClick={handleStartLearningEvent}
+                onClick={
+                  !login
+                    ? handleStartLearningEvent
+                    : () => {
+                        window.alert("You are logged in.");
+                      }
+                }
               />
               <Button
                 type={"button"}
@@ -311,6 +350,7 @@ function App() {
             title={"Access Denied"}
             text={"Please login in order to access this content"}
             cancelEvent={handleModalCancelEvent}
+            loginEvent={!login && handleShowLoginForm}
           />
         )}
         {/* GOT TO TOP */}
@@ -320,6 +360,27 @@ function App() {
             onClick={handleGoToTop}
           />
         )}
+        {/* FORMS */}
+        {/* Login Form */}
+        {forms.loginForm && (
+          <div className="modal">
+            <LoginForm
+              handleCancel={handleCancelLoginForm}
+              showRegister={handleShowRegistrationForm}
+              loggedIn={handleLoginFormValidation}
+            />
+          </div>
+        )}
+        {/* Registration Form */}
+        {forms.registrationForm && (
+          <div className="modal">
+            <RegistrationForm
+              handleCancel={handleCancelRegistrationForm}
+              showLogin={handleShowLoginForm}
+              // loggedIn={handleLoginFormValidation}
+            />
+          </div>
+        )}
       </div>
 
       {/* EXAMPLES */}
@@ -327,6 +388,7 @@ function App() {
       {/* <MyList style={{ height: "100vh" }} /> */}
       {/* <UseEffectHookEx></UseEffectHookEx> */}
       {/* <UseRefEx /> */}
+      {/* <ThrowError /> */}
     </div>
   );
 }
